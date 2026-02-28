@@ -94,11 +94,11 @@ const Lightbox: React.FC<LightboxProps> = ({ photo, onClose }) => {
             {/* Split Screen Layout Container */}
             <div
                 ref={imageRef}
-                className="relative w-full h-full max-w-[100vw] max-h-[100vh] flex flex-col lg:flex-row cursor-default opacity-0"
+                className="relative w-full h-full max-w-[100vw] max-h-[100vh] flex flex-col lg:flex-row cursor-default opacity-0 overflow-y-auto lg:overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Image Section (Left) */}
-                <div className="flex-1 flex items-center justify-center p-4 lg:p-12 lg:pr-6 bg-black">
+                <div className="w-full lg:flex-1 h-[60vh] lg:h-full flex items-center justify-center p-4 lg:p-12 lg:pr-6 bg-black shrink-0">
                     <img
                         src={photo.url}
                         alt={photo.title}
