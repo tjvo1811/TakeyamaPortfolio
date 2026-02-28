@@ -4,43 +4,26 @@ Welcome to your new Editorial Architecture Portfolio. This platform has been pre
 
 Here is exactly how to manage your gallery:
 
-## 1. Adding Your Photos
-1. Place all your high-resolution `.jpg` or `.png` images directly into the `public/` folder in this project directory. Keep file names simple without spaces, e.g., `tokyo-tower.jpg`.
-2. Do not crop your images. The portfolio natively handles all aspect ratios dynamically.
+## 1. Adding Your Photos (The Magic Way)
+We've built an automated engine to extract your EXIF data (Camera, Lens, Aperture, Shutter Speed, ISO) directly from your image files.
 
-## 2. The Photo Engine Config (`portfolio.config.ts`)
-Open `src/data/portfolio.config.ts`. This file controls the entire gallery structure. You will see an array of objects.
+1. Create a `photos` folder inside your `public/` directory (it is already created for you).
+2. Inside `public/photos/`, you have two folders:
+   - `highlight/`: Put up to 3 of your favorite photos here. They will be pinned to the enormous cinema-style Hero section at the top of the site.
+   - `gallery/`: Put the rest of your photos here.
+3. Keep file names simple without spaces, e.g., `tokyo-tower.jpg`. We will automatically use the file name as the photo's Title!
 
-To add a photo, add a new object to the `portfolioConfig` array following this exact structure:
+## 2. Syncing Your Portfolio
+Once your `.jpg` or `.png` images are in those folders, open your terminal and run:
 
-```typescript
-{
-  id: "unique-name-1", // Must be unique for every image
-  url: "/tokyo-tower.jpg", // If it's in the public folder, just start with a slash
-  title: "Tokyo Tower Twilight",
-  collection: "Tokyo",
-  isPinned: true, 
-  order: 1,
-  exif: {
-    camera: "Leica Q2",
-    lens: "28mm Summilux",
-    aperture: "f/1.7",
-    shutter: "1/60s",
-    iso: "400"
-  }
-}
+```bash
+npm run sync
 ```
 
-## 3. Pinning images to the Hero Cluster
-The massive hero text section ("Precision-engineered for Vision") holds a cluster of **exactly two or three** "Pinned" images. 
+**That's it.** The script will mathematically scan your photos, rip the exact EXIF metadata, calculate chronological dates to display them from least to most recent, and build out your `portfolio.config.ts` effortlessly. You no longer have to manually type out camera metadata.
 
-To feature a photo in this overlapping hero cluster:
-- Change its `isPinned` value to `true`.
-- The first 3 pinned images sorted by their `order` will automatically slot into the cinematic hero cluster.
-
-## 4. Reorganizing the Masonry Grid
-The grid automatically sorts your non-pinned photos. To precisely place an image higher or lower on the page:
-- Change its `order` number. Lower numbers (e.g., `1, 2, 3`) will appear near the top. Higher numbers will flow downwards.
+## 3. Manual Overrides (Optional)
+If you ever want to manually change a title, reorganize the chronological layout, or change a Collection tag (e.g., from "Gallery" to "Architecture"), you can still open `src/data/portfolio.config.ts` and edit the generated Javascript array.
 
 ## 5. Running Your Site
 - To preview locally: Type `npm run dev` in your terminal and open the provided `localhost` link.

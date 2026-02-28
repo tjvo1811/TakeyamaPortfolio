@@ -1,10 +1,13 @@
+// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
+// Run `npm run sync` to update this file with new photos from public/photos.
+
 export interface Photo {
     id: string;
-    url: string;           // Local path or external URL
+    url: string;           
     title?: string;
-    collection: string;    // e.g., 'Tokyo', 'Horology', 'Street'
-    isPinned: boolean;     // If true, shows up in the massive Hero Section
-    order: number;         // Allows clever reorganizing. Lower numbers appear first.
+    collection: string;    
+    isPinned: boolean;     
+    order: number;         
     exif?: {
         camera: string;
         lens: string;
@@ -16,123 +19,297 @@ export interface Photo {
 
 export const portfolioConfig: Photo[] = [
     {
-        id: "pin-1",
-        url: "https://images.unsplash.com/photo-1620025740441-2a14eaf03780?q=80&w=1600&auto=format&fit=crop",
-        title: "Tokyo Tower Twilight",
-        collection: "Tokyo",
-        isPinned: true,
-        order: 1,
-        exif: {
-            camera: "Leica Q2",
-            lens: "28mm Summilux",
-            aperture: "f/1.7",
-            shutter: "1/60s",
-            iso: "400"
-        }
+        "id": "IMG_1972",
+        "url": "/photos/highlight/IMG_1972.jpg",
+        "collection": "Highlight",
+        "isPinned": true,
+        "exif": {
+            "camera": "Apple iPhone 17",
+            "lens": "iPhone 17 back dual wide camera 5.96mm f/1.6",
+            "aperture": "f/1.6",
+            "shutter": "1/50s",
+            "iso": "ISO 125"
+        },
+        "order": 1
     },
     {
-        id: "pin-2",
-        url: "https://images.unsplash.com/photo-1542051812871-75f56cc9a3af?q=80&w=1600&auto=format&fit=crop",
-        title: "Shibuya Crossing",
-        collection: "Street",
-        isPinned: true,
-        order: 2,
-        exif: {
-            camera: "Leica SL2",
-            lens: "35mm APO",
-            aperture: "f/2.0",
-            shutter: "1/125s",
-            iso: "200"
-        }
+        "id": "IMG_0803",
+        "url": "/photos/highlight/IMG_0803.jpg",
+        "collection": "Highlight",
+        "isPinned": true,
+        "exif": {
+            "camera": "Apple iPhone 17",
+            "lens": "iPhone 17 back dual wide camera 5.96mm f/1.6",
+            "aperture": "f/1.6",
+            "shutter": "1/1894s",
+            "iso": "ISO 32"
+        },
+        "order": 2
     },
     {
-        id: "pin-3",
-        url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop",
-        title: "Minimalist Structure",
-        collection: "Architecture",
-        isPinned: true,
-        order: 3,
-        exif: {
-            camera: "Hasselblad X1D",
-            lens: "45mm",
-            aperture: "f/5.6",
-            shutter: "1/250s",
-            iso: "100"
-        }
+        "id": "IMG_7944.JPG",
+        "url": "/photos/highlight/IMG_7944.JPG",
+        "collection": "Highlight",
+        "isPinned": true,
+        "exif": {
+            "camera": "Apple iPhone 14",
+            "lens": "iPhone 14 back dual wide camera 5.7mm f/1.5",
+            "aperture": "f/1.5",
+            "shutter": "1/50s",
+            "iso": "ISO 125"
+        },
+        "order": 3
     },
     {
-        id: "grid-1",
-        url: "https://images.unsplash.com/photo-1598414441295-d853eeda52fb?q=80&w=1200&auto=format&fit=crop",
-        title: "Submariner Macro",
-        collection: "Horology",
-        isPinned: false,
-        order: 4,
-        exif: {
-            camera: "Leica SL2",
-            lens: "90mm Macro",
-            aperture: "f/8.0",
-            shutter: "1/100s",
-            iso: "800"
-        }
+        "id": "DSC00843.JPG",
+        "url": "/photos/gallery/DSC00843.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/5.6",
+            "shutter": "1/125s",
+            "iso": "ISO 6400"
+        },
+        "order": 4
     },
     {
-        id: "grid-2",
-        url: "https://images.unsplash.com/photo-1524387813524-7df84fb9f33b?q=80&w=1200&auto=format&fit=crop",
-        title: "Concrete Geometric",
-        collection: "Architecture",
-        isPinned: false,
-        order: 5,
-        exif: {
-            camera: "Sony A7RV",
-            lens: "24mm GM",
-            aperture: "f/8.0",
-            shutter: "1/200s",
-            iso: "100"
-        }
+        "id": "DSC00954.JPG",
+        "url": "/photos/gallery/DSC00954.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/4.5",
+            "shutter": "1/500s",
+            "iso": "ISO 4000"
+        },
+        "order": 5
     },
     {
-        id: "grid-3",
-        url: "https://images.unsplash.com/photo-1601004456903-85f7e4f16a63?q=80&w=1200&auto=format&fit=crop",
-        title: "Kyoto Lanterns",
-        collection: "Tokyo",
-        isPinned: false,
-        order: 6,
-        exif: {
-            camera: "Leica Q2",
-            lens: "28mm",
-            aperture: "f/1.7",
-            shutter: "1/30s",
-            iso: "3200"
-        }
+        "id": "DSC01022.JPG",
+        "url": "/photos/gallery/DSC01022.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/5.6",
+            "shutter": "1/200s",
+            "iso": "ISO 800"
+        },
+        "order": 6
     },
     {
-        id: "grid-4",
-        url: "https://images.unsplash.com/photo-1502485590209-409139f4a9b4?q=80&w=1200&auto=format&fit=crop",
-        title: "Night Fall",
-        collection: "Street",
-        isPinned: false,
-        order: 7,
-        exif: {
-            camera: "Leica SL2",
-            lens: "50mm Summilux",
-            aperture: "f/1.4",
-            shutter: "1/60s",
-            iso: "1600"
-        }
+        "id": "DSC01068.JPG",
+        "url": "/photos/gallery/DSC01068.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/9",
+            "shutter": "1/125s",
+            "iso": "ISO 500"
+        },
+        "order": 7
     },
     {
-        id: "grid-5",
-        url: "https://images.unsplash.com/photo-1620891549420-56d7350cb4a7?q=80&w=1200&auto=format&fit=crop",
-        title: "Watch Detailing",
-        collection: "Horology",
-        isPinned: false,
-        order: 8,
-        exif: {
-            camera: "Fujifilm GFX100S",
-            lens: "120mm Macro",
-            aperture: "f/11",
-            shutter: "1/2s",
-            iso: "100"
-        }
+        "id": "DSC01244.JPG",
+        "url": "/photos/gallery/DSC01244.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/3.5",
+            "shutter": "1/125s",
+            "iso": "ISO 4000"
+        },
+        "order": 8
+    },
+    {
+        "id": "DSC01937.JPG",
+        "url": "/photos/gallery/DSC01937.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/6.3",
+            "shutter": "1/2500s",
+            "iso": "ISO 640"
+        },
+        "order": 9
+    },
+    {
+        "id": "DSC02118.JPG",
+        "url": "/photos/gallery/DSC02118.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/5.6",
+            "shutter": "1/1600s",
+            "iso": "ISO 320"
+        },
+        "order": 10
+    },
+    {
+        "id": "DSC02235.JPG",
+        "url": "/photos/gallery/DSC02235.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/5.6",
+            "shutter": "1/2500s",
+            "iso": "ISO 320"
+        },
+        "order": 11
+    },
+    {
+        "id": "DSC02432.JPG",
+        "url": "/photos/gallery/DSC02432.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/5.6",
+            "shutter": "1/125s",
+            "iso": "ISO 2500"
+        },
+        "order": 12
+    },
+    {
+        "id": "DSC02447.JPG",
+        "url": "/photos/gallery/DSC02447.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/5.6",
+            "shutter": "1/60s",
+            "iso": "ISO 6400"
+        },
+        "order": 13
+    },
+    {
+        "id": "DSC02660.JPG",
+        "url": "/photos/gallery/DSC02660.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/5.6",
+            "shutter": "1/80s",
+            "iso": "ISO 6400"
+        },
+        "order": 14
+    },
+    {
+        "id": "DSC03190.JPG",
+        "url": "/photos/gallery/DSC03190.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/5.6",
+            "shutter": "1/1000s",
+            "iso": "ISO 100"
+        },
+        "order": 15
+    },
+    {
+        "id": "DSC03357",
+        "url": "/photos/gallery/DSC03357.jpg",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "----",
+            "aperture": "",
+            "shutter": "1/125s",
+            "iso": "ISO 100"
+        },
+        "order": 16
+    },
+    {
+        "id": "IMG_2996.JPG",
+        "url": "/photos/gallery/IMG_2996.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "Apple iPhone 14",
+            "lens": "iPhone 14 back dual wide camera 5.7mm f/1.5",
+            "aperture": "f/1.5",
+            "shutter": "1/40s",
+            "iso": "ISO 640"
+        },
+        "order": 17
+    },
+    {
+        "id": "IMG_3096.JPG",
+        "url": "/photos/gallery/IMG_3096.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "Apple iPhone 14",
+            "lens": "iPhone 14 back dual wide camera 5.7mm f/1.5",
+            "aperture": "f/1.5",
+            "shutter": "1/590s",
+            "iso": "ISO 50"
+        },
+        "order": 18
+    },
+    {
+        "id": "DSC03496",
+        "url": "/photos/gallery/DSC03496.jpg",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "----",
+            "aperture": "",
+            "shutter": "1/125s",
+            "iso": "ISO 100"
+        },
+        "order": 19
+    },
+    {
+        "id": "DSC03539.JPG",
+        "url": "/photos/gallery/DSC03539.JPG",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "SONY ILCE-6700",
+            "lens": "E PZ 16-50mm F3.5-5.6 OSS",
+            "aperture": "f/5",
+            "shutter": "1/200s",
+            "iso": "ISO 5000"
+        },
+        "order": 20
+    },
+    {
+        "id": "IMG_0919",
+        "url": "/photos/gallery/IMG_0919.jpg",
+        "collection": "Gallery",
+        "isPinned": false,
+        "exif": {
+            "camera": "Apple iPhone 17",
+            "lens": "iPhone 17 back dual wide camera 5.96mm f/1.6",
+            "aperture": "f/1.6",
+            "shutter": "1/60s",
+            "iso": "ISO 100"
+        },
+        "order": 21
     }
 ];
