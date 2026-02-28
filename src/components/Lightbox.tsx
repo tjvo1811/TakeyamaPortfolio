@@ -82,36 +82,79 @@ const Lightbox: React.FC<LightboxProps> = ({ photo, onClose }) => {
         >
             {/* Close Button */}
             <button
-                className="absolute top-6 right-6 lg:top-12 lg:right-12 text-white/50 hover:text-white transition-colors p-2 z-[10000]"
+                className="absolute top-6 right-6 lg:top-8 lg:right-8 text-white/50 hover:text-white transition-colors p-2 z-[10000]"
                 onClick={(e) => {
                     e.stopPropagation();
                     handleClose();
                 }}
             >
-                <X size={32} strokeWidth={1} />
+                <X size={28} strokeWidth={1.5} />
             </button>
 
-            {/* Main Image */}
+            {/* Split Screen Layout Container */}
             <div
-                className="relative w-full h-full max-w-[95vw] max-h-[95vh] flex items-center justify-center p-4 lg:p-12 cursor-default"
+                ref={imageRef}
+                className="relative w-full h-full max-w-[100vw] max-h-[100vh] flex flex-col lg:flex-row cursor-default opacity-0"
                 onClick={(e) => e.stopPropagation()}
             >
-                <img
-                    ref={imageRef}
-                    src={photo.url}
-                    alt={photo.title}
-                    className="max-w-full max-h-full object-contain shadow-2xl opacity-0"
-                />
+                {/* Image Section (Left) */}
+                <div className="flex-1 flex items-center justify-center p-4 lg:p-12 lg:pr-6 bg-black">
+                    <img
+                        src={photo.url}
+                        alt={photo.title}
+                        className="max-w-full max-h-full object-contain shadow-2xl"
+                    />
+                </div>
 
-                {/* Minimal Info */}
-                <div className="absolute bottom-12 left-12 hidden lg:block">
-                    <p className="font-serif italic text-white/90 text-2xl mb-2">{photo.title}</p>
+                {/* Info Sidebar Section (Right) */}
+                <div className="w-full lg:w-[400px] xl:w-[480px] shrink-0 bg-[#0a0a0a] border-t lg:border-t-0 lg:border-l border-white/10 p-8 lg:p-12 flex flex-col justify-center gap-8 lg:gap-12 overflow-y-auto">
+
+                    {/* Title Area */}
+                    <div>
+                        <h2 className="font-serif italic text-white/90 text-3xl lg:text-4xl mb-2">{photo.title}</h2>
+                        <p className="font-mono text-xs text-white/40 tracking-widest uppercase">{photo.collection} COLLECTION</p>
+                    </div>
+
+                    {/* Meta Data List */}
                     {photo.exif && (
-                        <p className="font-mono text-xs text-white/50 tracking-widest uppercase">
-                            {photo.exif.camera} • {photo.exif.lens} • {photo.exif.aperture} • {photo.exif.shutter}
-                        </p>
+                        <div className="flex flex-col gap-6 text-sm text-white/70">
+
+                            <div className="flex flex-col gap-1 border-b border-white/5 pb-4">
+                                <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">Camera</span>
+                                <span className="font-sans font-medium text-white/90">{photo.exif.camera}</span>
+                            </div>
+
+                            <div className="flex flex-col gap-1 border-b border-white/5 pb-4">
+                                <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">Lens</span>
+                                <span className="font-sans font-medium text-white/90">{photo.exif.lens}</span>
+                            </div>
+
+                            <div className="grid grid-cols-3 gap-4 border-b border-white/5 pb-4">
+                                <div className="flex flex-col gap-1">
+                                    <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">Aperture</span>
+                                    <span className="font-mono text-white/90">{photo.exif.aperture || '—'}</span>
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">Shutter</span>
+                                    <span className="font-mono text-white/90">{photo.exif.shutter || '—'}</span>
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">ISO</span>
+                                    <span className="font-mono text-white/90">{photo.exif.iso || '—'}</span>
+                                </div>
+                            </div>
+
+                            {photo.timestamp && (
+                                <div className="flex flex-col gap-1 pt-2">
+                                    <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">Date</span>
+                                    <span className="font-sans text-white/50">{new Date(photo.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                                </div>
+                            )}
+
+                        </div>
                     )}
                 </div>
+
             </div>
         </div>
     );

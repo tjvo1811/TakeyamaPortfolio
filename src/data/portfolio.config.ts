@@ -8,6 +8,7 @@ export interface Photo {
     collection: string;    
     isPinned: boolean;     
     order: number;         
+    timestamp?: number;
     exif?: {
         camera: string;
         lens: string;
@@ -23,6 +24,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/highlight/IMG_1972.jpg",
         "collection": "Highlight",
         "isPinned": true,
+        "timestamp": 1765840653000,
         "exif": {
             "camera": "Apple iPhone 17",
             "lens": "iPhone 17 back dual wide camera 5.96mm f/1.6",
@@ -37,6 +39,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/highlight/IMG_0803.jpg",
         "collection": "Highlight",
         "isPinned": true,
+        "timestamp": 1761858145000,
         "exif": {
             "camera": "Apple iPhone 17",
             "lens": "iPhone 17 back dual wide camera 5.96mm f/1.6",
@@ -51,6 +54,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/highlight/IMG_7944.JPG",
         "collection": "Highlight",
         "isPinned": true,
+        "timestamp": 1747537334000,
         "exif": {
             "camera": "Apple iPhone 14",
             "lens": "iPhone 14 back dual wide camera 5.7mm f/1.5",
@@ -65,6 +69,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC00843.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1678373708000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -79,6 +84,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC00954.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1678707588000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -93,6 +99,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC01022.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1679132073000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -107,6 +114,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC01068.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1679393887000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -121,6 +129,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC01244.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1679641553000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -135,6 +144,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC01937.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1679712713000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -149,6 +159,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC02118.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1679716331000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -163,6 +174,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC02235.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1679724416000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -177,6 +189,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC02432.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1679999508000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -191,6 +204,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC02447.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1679999573000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -205,6 +219,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC02660.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1680000998000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -219,6 +234,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC03190.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1684799844000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -233,6 +249,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC03357.jpg",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1690248543000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "----",
@@ -247,6 +264,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/IMG_2996.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1715822284000,
         "exif": {
             "camera": "Apple iPhone 14",
             "lens": "iPhone 14 back dual wide camera 5.7mm f/1.5",
@@ -261,6 +279,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/IMG_3096.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1716159897000,
         "exif": {
             "camera": "Apple iPhone 14",
             "lens": "iPhone 14 back dual wide camera 5.7mm f/1.5",
@@ -275,6 +294,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC03496.jpg",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1731709401000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "----",
@@ -289,6 +309,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/DSC03539.JPG",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1737475962000,
         "exif": {
             "camera": "SONY ILCE-6700",
             "lens": "E PZ 16-50mm F3.5-5.6 OSS",
@@ -303,6 +324,7 @@ export const portfolioConfig: Photo[] = [
         "url": "/photos/gallery/IMG_0919.jpg",
         "collection": "Gallery",
         "isPinned": false,
+        "timestamp": 1762203832000,
         "exif": {
             "camera": "Apple iPhone 17",
             "lens": "iPhone 17 back dual wide camera 5.96mm f/1.6",

@@ -116,9 +116,6 @@ async function generateConfig() {
 
     const finalConfig = [...pinned, ...gallery];
 
-    // Remove the temporary timestamp field before writing out
-    const configClean = finalConfig.map(({ timestamp, ...rest }) => rest);
-
     const fileContent = `// AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
 // Run \`npm run sync\` to update this file with new photos from public/photos.
 
@@ -129,6 +126,7 @@ export interface Photo {
     collection: string;    
     isPinned: boolean;     
     order: number;         
+    timestamp?: number;
     exif?: {
         camera: string;
         lens: string;
@@ -138,10 +136,10 @@ export interface Photo {
     };
 }
 
-export const portfolioConfig: Photo[] = ${JSON.stringify(configClean, null, 4)};\n`;
+export const portfolioConfig: Photo[] = ${JSON.stringify(finalConfig, null, 4)};\n`;
 
     fs.writeFileSync(CONFIG_PATH, fileContent, 'utf-8');
-    console.log(`Successfully generated portfolio.config.ts with ${configClean.length} photos!`);
+    console.log(`Successfully generated portfolio.config.ts with ${finalConfig.length} photos!`);
 }
 
 generateConfig().catch(console.error);
