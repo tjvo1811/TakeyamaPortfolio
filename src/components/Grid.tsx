@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Photo } from '../data/portfolio.config';
@@ -160,15 +159,6 @@ const Grid = () => {
                 onClose={() => setSelectedPhoto(null)}
             />
 
-            {/* Subtle owner access — intentionally low-visibility */}
-            <div className="mt-32 pb-8 flex justify-center">
-                <Link
-                    to="/admin"
-                    className="font-mono text-[10px] tracking-widest uppercase text-charcoal/15 hover:text-charcoal/40 transition-colors duration-500 select-none"
-                >
-                    ©
-                </Link>
-            </div>
 
         </section>
     );
