@@ -1,12 +1,16 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { portfolioConfig, Photo } from '../data/portfolio.config';
+import { Photo } from '../data/portfolio.config';
 import Lightbox from './Lightbox';
+import { usePhotos } from '../hooks/usePhotos';
+import { useContent } from '../hooks/useContent';
 
 const Hero = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-    const pinnedPhotos = portfolioConfig.filter(p => p.isPinned).sort((a, b) => a.order - b.order);
+    const { photos } = usePhotos();
+    const { content } = useContent();
+    const pinnedPhotos = photos.filter(p => p.isPinned).sort((a, b) => a.order - b.order);
 
     useLayoutEffect(() => {
         let ctx = gsap.context(() => {
@@ -41,10 +45,10 @@ const Hero = () => {
             {/* Editorial Typography */}
             <div className="z-10 text-center mb-16 lg:mb-24 flex flex-col items-center pointer-events-none mt-12">
                 <p className="hero-text font-sans tracking-[0.3em] uppercase text-xs sm:text-sm lg:text-base text-slate mb-4">
-                    Portfolio
+                    {content.hero_subtitle}
                 </p>
                 <h1 className="hero-text font-serif italic font-light text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] leading-none tracking-tight text-charcoal">
-                    武山松
+                    {content.hero_name}
                 </h1>
             </div>
 

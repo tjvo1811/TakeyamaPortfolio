@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { portfolioConfig, Photo } from '../data/portfolio.config';
+import { Photo } from '../data/portfolio.config';
 import Lightbox from './Lightbox';
 import { LayoutGrid, List } from 'lucide-react';
+import { usePhotos } from '../hooks/usePhotos';
+import { useContent } from '../hooks/useContent';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,9 +14,11 @@ const Grid = () => {
     const [layoutMode, setLayoutMode] = useState<'grid' | 'index'>('grid');
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
     const gridRef = useRef<HTMLDivElement>(null);
+    const { photos } = usePhotos();
+    const { content } = useContent();
 
     // Filter and sort the remaining non-pinned photos
-    const gridPhotos = portfolioConfig
+    const gridPhotos = photos
         .filter(p => !p.isPinned)
         .sort((a, b) => a.order - b.order);
 
@@ -52,7 +57,7 @@ const Grid = () => {
             {/* Header & Controls */}
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 border-b border-charcoal/10 pb-12">
                 <div>
-                    <h2 className="font-serif italic text-4xl lg:text-5xl text-charcoal mb-8">Selected Works</h2>
+                    <h2 className="font-serif italic text-4xl lg:text-5xl text-charcoal mb-8">{content.grid_title}</h2>
                 </div>
 
                 {/* Layout Switcher (Desktop Only) */}
@@ -154,6 +159,16 @@ const Grid = () => {
                 photo={selectedPhoto}
                 onClose={() => setSelectedPhoto(null)}
             />
+
+            {/* Subtle owner access — intentionally low-visibility */}
+            <div className="mt-32 pb-8 flex justify-center">
+                <Link
+                    to="/admin"
+                    className="font-mono text-[10px] tracking-widest uppercase text-charcoal/15 hover:text-charcoal/40 transition-colors duration-500 select-none"
+                >
+                    ©
+                </Link>
+            </div>
 
         </section>
     );
