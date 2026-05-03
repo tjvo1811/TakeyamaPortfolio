@@ -1,6 +1,10 @@
 -- ============================================================
 -- TakeyamaPortfolio — Supabase Schema
 -- Run this entire file in your Supabase project's SQL Editor
+--
+-- If you already ran an older script (photos + content only) and
+-- get "table public.albums does not exist", run ensure_albums.sql once,
+-- then keep this file as your full reference for new projects.
 -- ============================================================
 
 -- Photos table
