@@ -43,14 +43,34 @@ export const isAuthenticated = (): boolean => {
 
 async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = isAuthenticated() ? getAuthToken() : null;
-  const res = await fetch(`/api${path}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(options.headers as Record<string, string> | undefined),
-    },
-  });
+  const method = (options.method ?? 'GET').toUpperCase();
+  const sendsJsonBody =
+    typeof options.body === 'string' &&
+    options.body.length > 0 &&
+    ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method);
+
+  const headers = new Headers(options.headers as HeadersInit | undefined);
+  if (token) headers.set('Authorization', `Bearer ${token}`);
+  if (sendsJsonBody && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
+  }
+
+  const { headers: _ignored, ...rest } = options;
+  const origin =
+    typeof window !== 'undefined' && window.location?.origin ? window.location.origin : '';
+  const url = `${origin}/api${path}`;
+
+  let res: Response;
+  try {
+    res = await fetch(url, { ...rest, headers });
+  } catch (err) {
+    if (err instanceof TypeError) {
+      throw new Error(
+        'Network error: the request did not complete. Check your connection, use the HTTPS site URL, or try turning off strict content blockers for this site.',
+      );
+    }
+    throw err;
+  }
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({ error: 'Request failed' }));

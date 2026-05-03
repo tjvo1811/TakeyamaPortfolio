@@ -232,10 +232,20 @@ const PhotoManager: React.FC = () => {
       formData.append('signature', sig.signature);
       formData.append('folder', sig.folder);
 
-      const cloudRes = await fetch(
-        `https://api.cloudinary.com/v1_1/${sig.cloudName}/image/upload`,
-        { method: 'POST', body: formData }
-      );
+      let cloudRes: Response;
+      try {
+        cloudRes = await fetch(
+          `https://api.cloudinary.com/v1_1/${sig.cloudName}/image/upload`,
+          { method: 'POST', body: formData, mode: 'cors', credentials: 'omit' },
+        );
+      } catch (err) {
+        if (err instanceof TypeError) {
+          throw new Error(
+            'Could not reach Cloudinary to upload the image. Check your connection or try disabling content blockers for this site.',
+          );
+        }
+        throw err;
+      }
       const cloudData = await cloudRes.json().catch(() => null);
       if (!cloudRes.ok || !cloudData?.secure_url) {
         throw new Error(cloudData?.error?.message || 'Cloudinary upload failed');
