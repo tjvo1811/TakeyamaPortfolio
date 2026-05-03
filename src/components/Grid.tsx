@@ -157,6 +157,8 @@ const Grid = () => {
             <Lightbox
                 photo={selectedPhoto}
                 onClose={() => setSelectedPhoto(null)}
+                galleryPhotos={gridPhotos}
+                onOpenPhoto={(p) => setSelectedPhoto(p)}
             />
 
 

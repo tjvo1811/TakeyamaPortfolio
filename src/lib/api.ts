@@ -1,16 +1,48 @@
-import { Photo } from '../data/portfolio.config';
+import { Album, Photo } from '../data/portfolio.config';
 
 // ── Auth token helpers ────────────────────────────────────────────────────────
 
 export const getAuthToken = (): string | null => localStorage.getItem('admin_token');
-export const setAuthToken = (token: string): void => localStorage.setItem('admin_token', token);
-export const clearAuthToken = (): void => localStorage.removeItem('admin_token');
-export const isAuthenticated = (): boolean => !!getAuthToken();
+const notifyAuthChanged = (): void => {
+  window.dispatchEvent(new Event('admin-auth-change'));
+};
+export const setAuthToken = (token: string): void => {
+  localStorage.setItem('admin_token', token);
+  notifyAuthChanged();
+};
+export const clearAuthToken = (): void => {
+  localStorage.removeItem('admin_token');
+  notifyAuthChanged();
+};
+
+function isJwtExpired(token: string): boolean {
+  try {
+    const [, payload] = token.split('.');
+    if (!payload) return true;
+
+    const normalized = payload.replace(/-/g, '+').replace(/_/g, '/');
+    const padded = normalized.padEnd(normalized.length + (4 - normalized.length % 4) % 4, '=');
+    const decoded = JSON.parse(atob(padded));
+    return typeof decoded.exp !== 'number' || decoded.exp * 1000 <= Date.now();
+  } catch {
+    return true;
+  }
+}
+
+export const isAuthenticated = (): boolean => {
+  const token = getAuthToken();
+  if (!token) return false;
+  if (isJwtExpired(token)) {
+    clearAuthToken();
+    return false;
+  }
+  return true;
+};
 
 // ── Base fetch wrapper ────────────────────────────────────────────────────────
 
 async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const token = getAuthToken();
+  const token = isAuthenticated() ? getAuthToken() : null;
   const res = await fetch(`/api${path}`, {
     ...options,
     headers: {
@@ -22,6 +54,10 @@ async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> 
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({ error: 'Request failed' }));
+    if (res.status === 401) {
+      clearAuthToken();
+      throw new Error('Your admin session expired. Please log in again.');
+    }
     throw new Error(err.error || 'Request failed');
   }
 
@@ -76,5 +112,32 @@ export const api = {
     apiFetch<{ success: true }>('/content', {
       method: 'PATCH',
       body: JSON.stringify(updates),
+    }),
+
+  // Albums
+  getAlbums: () => apiFetch<Album[]>('/albums'),
+
+  getAlbum: (id: string) =>
+    apiFetch<Album>(`/albums?id=${encodeURIComponent(id)}`),
+
+  createAlbum: (album: Omit<Album, 'order'> & { order?: number }) =>
+    apiFetch<{ success: true }>('/albums', {
+      method: 'POST',
+      body: JSON.stringify(album),
+    }),
+
+  updateAlbum: (
+    id: string,
+    updates: Partial<Omit<Album, 'id'>>,
+  ) =>
+    apiFetch<{ success: true }>('/albums', {
+      method: 'PATCH',
+      body: JSON.stringify({ id, ...updates }),
+    }),
+
+  deleteAlbum: (id: string) =>
+    apiFetch<{ success: true }>('/albums', {
+      method: 'DELETE',
+      body: JSON.stringify({ id }),
     }),
 };

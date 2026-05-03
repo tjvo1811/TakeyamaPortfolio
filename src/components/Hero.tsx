@@ -99,6 +99,8 @@ const Hero = () => {
             <Lightbox
                 photo={selectedPhoto}
                 onClose={() => setSelectedPhoto(null)}
+                galleryPhotos={pinnedPhotos}
+                onOpenPhoto={(p) => setSelectedPhoto(p)}
             />
 
         </section>

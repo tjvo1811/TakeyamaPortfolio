@@ -15,15 +15,24 @@ export const handler = async (event) => {
   const user = verifyToken(event);
   if (!user) return unauthorizedResponse();
 
+  const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } = process.env;
+  if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Cloudinary upload is not configured' }),
+    };
+  }
+
   cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: CLOUDINARY_CLOUD_NAME,
+    api_key: CLOUDINARY_API_KEY,
+    api_secret: CLOUDINARY_API_SECRET,
   });
 
   const timestamp = Math.round(Date.now() / 1000);
   const params = { timestamp, folder: 'portfolio' };
-  const signature = cloudinary.utils.api_sign_request(params, process.env.CLOUDINARY_API_SECRET);
+  const signature = cloudinary.utils.api_sign_request(params, CLOUDINARY_API_SECRET);
 
   return {
     statusCode: 200,
@@ -31,8 +40,8 @@ export const handler = async (event) => {
     body: JSON.stringify({
       signature,
       timestamp,
-      cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-      apiKey: process.env.CLOUDINARY_API_KEY,
+      cloudName: CLOUDINARY_CLOUD_NAME,
+      apiKey: CLOUDINARY_API_KEY,
       folder: 'portfolio',
     }),
   };

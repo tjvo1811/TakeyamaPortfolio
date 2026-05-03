@@ -18,6 +18,20 @@ export interface Photo {
     };
 }
 
+/** Curated albums (static fallback — edit here; synced DB uses Supabase `albums` table). */
+export interface Album {
+    id: string;
+    title: string;
+    description?: string;
+    coverUrl: string;
+    photoIds: string[];
+    createdAt: number;
+    order: number;
+}
+
+/** Empty by default — add albums in Admin or append entries here for API-offline fallback. */
+export const albumsConfig: Album[] = [];
+
 export const portfolioConfig: Photo[] = [
     {
         "id": "IMG_1972",
@@ -66,8 +80,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC00843.JPG",
-        "url": "/photos/gallery/DSC00843.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Architecture/DSC00843.JPG",
+        "collection": "Architecture",
         "isPinned": false,
         "timestamp": 1678373708000,
         "exif": {
@@ -81,8 +95,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC00954.JPG",
-        "url": "/photos/gallery/DSC00954.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Architecture/DSC00954.JPG",
+        "collection": "Architecture",
         "isPinned": false,
         "timestamp": 1678707588000,
         "exif": {
@@ -96,8 +110,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC01022.JPG",
-        "url": "/photos/gallery/DSC01022.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Architecture/DSC01022.JPG",
+        "collection": "Architecture",
         "isPinned": false,
         "timestamp": 1679132073000,
         "exif": {
@@ -111,8 +125,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC01068.JPG",
-        "url": "/photos/gallery/DSC01068.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Architecture/DSC01068.JPG",
+        "collection": "Architecture",
         "isPinned": false,
         "timestamp": 1679393887000,
         "exif": {
@@ -126,8 +140,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC01244.JPG",
-        "url": "/photos/gallery/DSC01244.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Street/DSC01244.JPG",
+        "collection": "Street",
         "isPinned": false,
         "timestamp": 1679641553000,
         "exif": {
@@ -141,8 +155,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC01937.JPG",
-        "url": "/photos/gallery/DSC01937.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Street/DSC01937.JPG",
+        "collection": "Street",
         "isPinned": false,
         "timestamp": 1679712713000,
         "exif": {
@@ -156,8 +170,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC02118.JPG",
-        "url": "/photos/gallery/DSC02118.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Street/DSC02118.JPG",
+        "collection": "Street",
         "isPinned": false,
         "timestamp": 1679716331000,
         "exif": {
@@ -171,8 +185,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC02235.JPG",
-        "url": "/photos/gallery/DSC02235.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Street/DSC02235.JPG",
+        "collection": "Street",
         "isPinned": false,
         "timestamp": 1679724416000,
         "exif": {
@@ -186,8 +200,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC02432.JPG",
-        "url": "/photos/gallery/DSC02432.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Street/DSC02432.JPG",
+        "collection": "Street",
         "isPinned": false,
         "timestamp": 1679999508000,
         "exif": {
@@ -201,8 +215,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC02447.JPG",
-        "url": "/photos/gallery/DSC02447.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Interior/DSC02447.JPG",
+        "collection": "Interior",
         "isPinned": false,
         "timestamp": 1679999573000,
         "exif": {
@@ -216,8 +230,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC02660.JPG",
-        "url": "/photos/gallery/DSC02660.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Interior/DSC02660.JPG",
+        "collection": "Interior",
         "isPinned": false,
         "timestamp": 1680000998000,
         "exif": {
@@ -231,8 +245,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC03190.JPG",
-        "url": "/photos/gallery/DSC03190.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Interior/DSC03190.JPG",
+        "collection": "Interior",
         "isPinned": false,
         "timestamp": 1684799844000,
         "exif": {
@@ -246,8 +260,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC03357",
-        "url": "/photos/gallery/DSC03357.jpg",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Interior/DSC03357.jpg",
+        "collection": "Interior",
         "isPinned": false,
         "timestamp": 1690248543000,
         "exif": {
@@ -261,8 +275,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "IMG_2996.JPG",
-        "url": "/photos/gallery/IMG_2996.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Travel/IMG_2996.JPG",
+        "collection": "Travel",
         "isPinned": false,
         "timestamp": 1715822284000,
         "exif": {
@@ -276,8 +290,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "IMG_3096.JPG",
-        "url": "/photos/gallery/IMG_3096.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Travel/IMG_3096.JPG",
+        "collection": "Travel",
         "isPinned": false,
         "timestamp": 1716159897000,
         "exif": {
@@ -291,8 +305,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC03496",
-        "url": "/photos/gallery/DSC03496.jpg",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Travel/DSC03496.jpg",
+        "collection": "Travel",
         "isPinned": false,
         "timestamp": 1731709401000,
         "exif": {
@@ -306,8 +320,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "DSC03539.JPG",
-        "url": "/photos/gallery/DSC03539.JPG",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Travel/DSC03539.JPG",
+        "collection": "Travel",
         "isPinned": false,
         "timestamp": 1737475962000,
         "exif": {
@@ -321,8 +335,8 @@ export const portfolioConfig: Photo[] = [
     },
     {
         "id": "IMG_0919",
-        "url": "/photos/gallery/IMG_0919.jpg",
-        "collection": "Gallery",
+        "url": "/photos/gallery/Travel/IMG_0919.jpg",
+        "collection": "Travel",
         "isPinned": false,
         "timestamp": 1762203832000,
         "exif": {

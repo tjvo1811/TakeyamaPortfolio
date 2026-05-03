@@ -3,8 +3,9 @@ import { useAuth } from '../../hooks/useAuth';
 import AdminLogin from './AdminLogin';
 import PhotoManager from './PhotoManager';
 import ContentEditor from './ContentEditor';
+import AlbumManager from './AlbumManager';
 
-type Tab = 'photos' | 'content';
+type Tab = 'photos' | 'content' | 'albums';
 
 const AdminDashboard: React.FC = () => {
   const { authed, logout, login, loading, error } = useAuth();
@@ -33,8 +34,8 @@ const AdminDashboard: React.FC = () => {
 
           <div className="flex items-center gap-6">
             {/* Tabs */}
-            <nav className="hidden sm:flex items-center gap-1">
-              {(['photos', 'content'] as Tab[]).map((tab) => (
+            <nav className="hidden sm:flex items-center gap-1 flex-wrap justify-end">
+              {(['photos', 'albums', 'content'] as Tab[]).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -44,7 +45,7 @@ const AdminDashboard: React.FC = () => {
                       : 'text-slate/50 hover:text-slate'
                   }`}
                 >
-                  {tab === 'photos' ? 'Photos' : 'Site Text'}
+                  {tab === 'photos' ? 'Photos' : tab === 'albums' ? 'Albums' : 'Site Text'}
                 </button>
               ))}
             </nav>
@@ -60,7 +61,7 @@ const AdminDashboard: React.FC = () => {
 
         {/* Mobile tabs */}
         <div className="sm:hidden flex border-t border-charcoal/8">
-          {(['photos', 'content'] as Tab[]).map((tab) => (
+          {(['photos', 'albums', 'content'] as Tab[]).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -68,7 +69,7 @@ const AdminDashboard: React.FC = () => {
                 activeTab === tab ? 'text-charcoal bg-charcoal/5' : 'text-slate/40'
               }`}
             >
-              {tab === 'photos' ? 'Photos' : 'Site Text'}
+              {tab === 'photos' ? 'Photos' : tab === 'albums' ? 'Albums' : 'Site Text'}
             </button>
           ))}
         </div>
@@ -77,6 +78,7 @@ const AdminDashboard: React.FC = () => {
       {/* Content */}
       <main className="max-w-5xl mx-auto px-6 py-12">
         {activeTab === 'photos' && <PhotoManager />}
+        {activeTab === 'albums' && <AlbumManager />}
         {activeTab === 'content' && <ContentEditor />}
       </main>
 

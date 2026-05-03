@@ -186,7 +186,10 @@ const PhotoManager: React.FC = () => {
   const handleFiles = useCallback(async (files: FileList | null) => {
     if (!files || files.length === 0) return;
     const file = files[0];
-    if (!file.type.startsWith('image/')) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Please choose an image file.');
+      return;
+    }
 
     const previewUrl = URL.createObjectURL(file);
     let exif: Photo['exif'] | null = null;
@@ -209,7 +212,10 @@ const PhotoManager: React.FC = () => {
     } catch { /* EXIF not available */ }
 
     const nameWithoutExt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
-    setUploadPreview({ file, previewUrl, title: nameWithoutExt, exif });
+    setUploadPreview((current) => {
+      if (current) URL.revokeObjectURL(current.previewUrl);
+      return { file, previewUrl, title: nameWithoutExt, exif };
+    });
   }, []);
 
   // ── Upload ──────────────────────────────────────────────────────────────
@@ -230,8 +236,11 @@ const PhotoManager: React.FC = () => {
         `https://api.cloudinary.com/v1_1/${sig.cloudName}/image/upload`,
         { method: 'POST', body: formData }
       );
-      const cloudData = await cloudRes.json();
-      if (!cloudData.secure_url) throw new Error(cloudData.error?.message || 'Upload failed');
+      const cloudData = await cloudRes.json().catch(() => null);
+      if (!cloudRes.ok || !cloudData?.secure_url) {
+        throw new Error(cloudData?.error?.message || 'Cloudinary upload failed');
+      }
+      if (!cloudData.public_id) throw new Error('Cloudinary did not return a public id');
 
       const id = cloudData.public_id.split('/').pop() || cloudData.public_id;
       await api.addPhoto({
@@ -247,6 +256,7 @@ const PhotoManager: React.FC = () => {
 
       URL.revokeObjectURL(uploadPreview.previewUrl);
       setUploadPreview(null);
+      if (fileInputRef.current) fileInputRef.current.value = '';
       await refetch();
     } catch (err: unknown) {
       alert(err instanceof Error ? err.message : 'Upload failed');
@@ -331,6 +341,7 @@ const PhotoManager: React.FC = () => {
           </p>
         </div>
         <button
+          type="button"
           onClick={() => fileInputRef.current?.click()}
           className="flex items-center gap-2 px-5 py-2.5 border border-charcoal/20 hover:border-charcoal/60 font-mono text-[10px] tracking-widest uppercase text-charcoal/60 hover:text-charcoal transition-all duration-300"
         >
@@ -342,7 +353,10 @@ const PhotoManager: React.FC = () => {
           type="file"
           accept="image/*"
           className="hidden"
-          onChange={(e) => handleFiles(e.target.files)}
+          onChange={(e) => {
+            handleFiles(e.target.files);
+            e.currentTarget.value = '';
+          }}
         />
       </div>
 
@@ -365,6 +379,7 @@ const PhotoManager: React.FC = () => {
         <div className="fixed inset-0 z-50 bg-charcoal/60 backdrop-blur-sm flex items-center justify-center p-6">
           <div className="bg-background max-w-lg w-full p-8 relative shadow-2xl">
             <button
+              type="button"
               onClick={() => { URL.revokeObjectURL(uploadPreview.previewUrl); setUploadPreview(null); }}
               className="absolute top-4 right-4 text-slate/40 hover:text-charcoal transition-colors"
             >
@@ -389,6 +404,7 @@ const PhotoManager: React.FC = () => {
               </div>
             )}
             <button
+              type="button"
               onClick={handleUpload}
               disabled={uploading}
               className="w-full py-3 border border-charcoal/20 hover:border-charcoal/60 font-mono text-[10px] tracking-widest uppercase text-charcoal/60 hover:text-charcoal transition-all duration-300 disabled:opacity-40 flex items-center justify-center gap-2"

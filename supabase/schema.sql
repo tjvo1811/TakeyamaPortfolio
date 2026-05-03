@@ -17,6 +17,17 @@ CREATE TABLE IF NOT EXISTS photos (
   created_at           TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Curated albums (ordered photo sets + cover image)
+CREATE TABLE IF NOT EXISTS albums (
+  id           TEXT PRIMARY KEY,
+  title        TEXT NOT NULL,
+  description  TEXT,
+  cover_url    TEXT NOT NULL,
+  photo_ids    JSONB NOT NULL DEFAULT '[]'::jsonb,
+  created_at   BIGINT,
+  sort_order   INTEGER NOT NULL DEFAULT 0
+);
+
 -- Site content (hero text, section titles, etc.)
 CREATE TABLE IF NOT EXISTS content (
   key   TEXT PRIMARY KEY,
@@ -33,6 +44,7 @@ ON CONFLICT (key) DO NOTHING;
 -- Enable Row Level Security
 ALTER TABLE photos  ENABLE ROW LEVEL SECURITY;
 ALTER TABLE content ENABLE ROW LEVEL SECURITY;
+ALTER TABLE albums ENABLE ROW LEVEL SECURITY;
 
 -- Allow anyone to read photos and content (public portfolio)
 CREATE POLICY "Public read photos"
@@ -40,6 +52,9 @@ CREATE POLICY "Public read photos"
 
 CREATE POLICY "Public read content"
   ON content FOR SELECT USING (true);
+
+CREATE POLICY "Public read albums"
+  ON albums FOR SELECT USING (true);
 
 -- Note: all writes go through Netlify Functions using the service role key,
 -- which bypasses RLS — no write policies needed here.
