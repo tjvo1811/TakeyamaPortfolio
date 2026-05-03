@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { verifyToken, unauthorizedResponse, corsHeaders } from './_utils/auth.js';
-import { getAdminClient } from './_utils/supabase.js';
+import { getAdminClientOr503, formatSupabaseError } from './_utils/supabase.js';
 
 function rowToPhoto(row) {
   return {
@@ -23,7 +23,9 @@ export const handler = async (event) => {
     return { statusCode: 204, headers, body: '' };
   }
 
-  const supabase = getAdminClient();
+  const db = getAdminClientOr503(headers);
+  if ('response' in db) return db.response;
+  const { supabase } = db;
 
   // ── GET — list all photos (public, no auth) ──────────────────────────────
   if (event.httpMethod === 'GET') {
@@ -32,7 +34,7 @@ export const handler = async (event) => {
       .select('*')
       .order('sort_order', { ascending: true });
 
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
 
     return {
       statusCode: 200,
@@ -74,7 +76,7 @@ export const handler = async (event) => {
       cloudinary_public_id: body.cloudinaryPublicId || null,
     });
 
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
     return { statusCode: 201, headers, body: JSON.stringify({ success: true }) };
   }
 
@@ -90,7 +92,7 @@ export const handler = async (event) => {
     if ('collection' in updates) dbUpdates.collection = updates.collection;
 
     const { error } = await supabase.from('photos').update(dbUpdates).eq('id', id);
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   }
 
@@ -115,7 +117,7 @@ export const handler = async (event) => {
     }
 
     const { error } = await supabase.from('photos').delete().eq('id', id);
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   }
 

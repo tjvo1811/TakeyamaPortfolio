@@ -1,5 +1,5 @@
 import { verifyToken, unauthorizedResponse, corsHeaders } from './_utils/auth.js';
-import { getAdminClient } from './_utils/supabase.js';
+import { getAdminClientOr503, formatSupabaseError } from './_utils/supabase.js';
 
 export const handler = async (event) => {
   const headers = corsHeaders();
@@ -8,12 +8,14 @@ export const handler = async (event) => {
     return { statusCode: 204, headers, body: '' };
   }
 
-  const supabase = getAdminClient();
+  const db = getAdminClientOr503(headers);
+  if ('response' in db) return db.response;
+  const { supabase } = db;
 
   // ── GET — read all content keys (public) ─────────────────────────────────
   if (event.httpMethod === 'GET') {
     const { data, error } = await supabase.from('content').select('*');
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
 
     const map = Object.fromEntries((data || []).map((row) => [row.key, row.value]));
     return { statusCode: 200, headers, body: JSON.stringify(map) };
@@ -33,7 +35,7 @@ export const handler = async (event) => {
 
     const upserts = Object.entries(updates).map(([key, value]) => ({ key, value: String(value) }));
     const { error } = await supabase.from('content').upsert(upserts, { onConflict: 'key' });
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   }
 

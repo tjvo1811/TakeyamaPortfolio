@@ -1,5 +1,5 @@
 import { verifyToken, unauthorizedResponse, corsHeaders } from './_utils/auth.js';
-import { getAdminClient } from './_utils/supabase.js';
+import { getAdminClientOr503, formatSupabaseError } from './_utils/supabase.js';
 
 function rowToAlbum(row) {
   const ids = row.photo_ids;
@@ -22,7 +22,9 @@ export const handler = async (event) => {
     return { statusCode: 204, headers, body: '' };
   }
 
-  const supabase = getAdminClient();
+  const db = getAdminClientOr503(headers);
+  if ('response' in db) return db.response;
+  const { supabase } = db;
   const idParam = event.queryStringParameters?.id;
 
   // ── GET — list all albums or one by id (public) ───────────────────────────
@@ -30,7 +32,7 @@ export const handler = async (event) => {
     if (idParam) {
       const { data, error } = await supabase.from('albums').select('*').eq('id', idParam).maybeSingle();
 
-      if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+      if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
       if (!data) return { statusCode: 404, headers, body: JSON.stringify({ error: 'Album not found' }) };
 
       return {
@@ -42,7 +44,7 @@ export const handler = async (event) => {
 
     const { data, error } = await supabase.from('albums').select('*').order('sort_order', { ascending: true });
 
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
 
     return {
       statusCode: 200,
@@ -81,7 +83,7 @@ export const handler = async (event) => {
       sort_order: body.order ?? nextOrder,
     });
 
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
     return { statusCode: 201, headers, body: JSON.stringify({ success: true }) };
   }
 
@@ -99,7 +101,7 @@ export const handler = async (event) => {
     if ('createdAt' in updates) dbUpdates.created_at = updates.createdAt;
 
     const { error } = await supabase.from('albums').update(dbUpdates).eq('id', id);
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   }
 
@@ -109,7 +111,7 @@ export const handler = async (event) => {
     if (!id) return { statusCode: 400, headers, body: JSON.stringify({ error: 'id required' }) };
 
     const { error } = await supabase.from('albums').delete().eq('id', id);
-    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+    if (error) return { statusCode: 500, headers, body: JSON.stringify({ error: formatSupabaseError(error) }) };
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
   }
 
