@@ -10,13 +10,30 @@ export const PUBLIC_DIR = path.resolve(__dirname, '../public');
 const HIGHLIGHT_DIR = path.join(PUBLIC_DIR, 'photos/highlight');
 export const GALLERY_DIR = path.join(PUBLIC_DIR, 'photos/gallery');
 
+/**
+ * Match legacy portfolio / Supabase ids: lowercase extension on disk → id without ext
+ * (IMG_0919, DSC03357). Uppercase/mixed extension → full basename (DSC01022.JPG, IMG_7944.JPG).
+ */
+export function legacyPhotoId(filePath) {
+  const base = path.basename(filePath);
+  const extRaw = path.extname(filePath);
+  const extLower = extRaw.toLowerCase();
+  if (!['.jpg', '.jpeg', '.png', '.webp', '.tiff', '.heic'].includes(extLower)) {
+    return base;
+  }
+  if (extRaw !== extLower) {
+    return base;
+  }
+  return path.basename(filePath, extRaw);
+}
+
 async function processPhoto(filePath, isPinned, collectionName) {
   const extRaw = path.extname(filePath);
   const ext = extRaw.toLowerCase();
   if (!['.jpg', '.jpeg', '.png', '.webp', '.tiff', '.heic'].includes(ext)) return null;
 
   const relativePath = filePath.replace(PUBLIC_DIR, '').replace(/\\/g, '/');
-  const id = path.basename(filePath, extRaw);
+  const id = legacyPhotoId(filePath);
   let exifData = null;
   let createDate = 0;
   let metadata = null;

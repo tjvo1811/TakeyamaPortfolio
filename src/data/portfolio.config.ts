@@ -64,7 +64,7 @@ export const portfolioConfig: Photo[] = [
         "order": 2
     },
     {
-        "id": "IMG_7944",
+        "id": "IMG_7944.JPG",
         "url": "/photos/highlight/IMG_7944.JPG",
         "collection": "Highlight",
         "isPinned": true,
@@ -79,7 +79,7 @@ export const portfolioConfig: Photo[] = [
         "order": 3
     },
     {
-        "id": "DSC00843",
+        "id": "DSC00843.JPG",
         "url": "/photos/gallery/Architecture/DSC00843.JPG",
         "collection": "Architecture",
         "isPinned": false,
@@ -94,7 +94,7 @@ export const portfolioConfig: Photo[] = [
         "order": 4
     },
     {
-        "id": "DSC00954",
+        "id": "DSC00954.JPG",
         "url": "/photos/gallery/Architecture/DSC00954.JPG",
         "collection": "Architecture",
         "isPinned": false,
@@ -109,7 +109,7 @@ export const portfolioConfig: Photo[] = [
         "order": 5
     },
     {
-        "id": "DSC01022",
+        "id": "DSC01022.JPG",
         "url": "/photos/gallery/Architecture/DSC01022.JPG",
         "collection": "Architecture",
         "isPinned": false,
@@ -124,7 +124,7 @@ export const portfolioConfig: Photo[] = [
         "order": 6
     },
     {
-        "id": "DSC01068",
+        "id": "DSC01068.JPG",
         "url": "/photos/gallery/Architecture/DSC01068.JPG",
         "collection": "Architecture",
         "isPinned": false,
@@ -139,7 +139,7 @@ export const portfolioConfig: Photo[] = [
         "order": 7
     },
     {
-        "id": "DSC01244",
+        "id": "DSC01244.JPG",
         "url": "/photos/gallery/Street/DSC01244.JPG",
         "collection": "Street",
         "isPinned": false,
@@ -154,7 +154,7 @@ export const portfolioConfig: Photo[] = [
         "order": 8
     },
     {
-        "id": "DSC01937",
+        "id": "DSC01937.JPG",
         "url": "/photos/gallery/Street/DSC01937.JPG",
         "collection": "Street",
         "isPinned": false,
@@ -169,7 +169,7 @@ export const portfolioConfig: Photo[] = [
         "order": 9
     },
     {
-        "id": "DSC02118",
+        "id": "DSC02118.JPG",
         "url": "/photos/gallery/Street/DSC02118.JPG",
         "collection": "Street",
         "isPinned": false,
@@ -184,7 +184,7 @@ export const portfolioConfig: Photo[] = [
         "order": 10
     },
     {
-        "id": "DSC02235",
+        "id": "DSC02235.JPG",
         "url": "/photos/gallery/Street/DSC02235.JPG",
         "collection": "Street",
         "isPinned": false,
@@ -199,7 +199,7 @@ export const portfolioConfig: Photo[] = [
         "order": 11
     },
     {
-        "id": "DSC02432",
+        "id": "DSC02432.JPG",
         "url": "/photos/gallery/Street/DSC02432.JPG",
         "collection": "Street",
         "isPinned": false,
@@ -214,7 +214,7 @@ export const portfolioConfig: Photo[] = [
         "order": 12
     },
     {
-        "id": "DSC02447",
+        "id": "DSC02447.JPG",
         "url": "/photos/gallery/Interior/DSC02447.JPG",
         "collection": "Interior",
         "isPinned": false,
@@ -229,7 +229,7 @@ export const portfolioConfig: Photo[] = [
         "order": 13
     },
     {
-        "id": "DSC02660",
+        "id": "DSC02660.JPG",
         "url": "/photos/gallery/Interior/DSC02660.JPG",
         "collection": "Interior",
         "isPinned": false,
@@ -244,7 +244,7 @@ export const portfolioConfig: Photo[] = [
         "order": 14
     },
     {
-        "id": "DSC03190",
+        "id": "DSC03190.JPG",
         "url": "/photos/gallery/Interior/DSC03190.JPG",
         "collection": "Interior",
         "isPinned": false,
@@ -274,7 +274,7 @@ export const portfolioConfig: Photo[] = [
         "order": 16
     },
     {
-        "id": "IMG_2996",
+        "id": "IMG_2996.JPG",
         "url": "/photos/gallery/Travel/IMG_2996.JPG",
         "collection": "Travel",
         "isPinned": false,
@@ -289,7 +289,7 @@ export const portfolioConfig: Photo[] = [
         "order": 17
     },
     {
-        "id": "IMG_3096",
+        "id": "IMG_3096.JPG",
         "url": "/photos/gallery/Travel/IMG_3096.JPG",
         "collection": "Travel",
         "isPinned": false,
@@ -319,7 +319,7 @@ export const portfolioConfig: Photo[] = [
         "order": 19
     },
     {
-        "id": "DSC03539",
+        "id": "DSC03539.JPG",
         "url": "/photos/gallery/Travel/DSC03539.JPG",
         "collection": "Travel",
         "isPinned": false,

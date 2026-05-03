@@ -45,6 +45,32 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
   auth: { persistSession: false },
 });
 
+/** Remove DB rows that still point at old flat /photos/gallery/<file> paths after files moved into subfolders. */
+async function deleteObsoleteFlatGalleryRows(validIds) {
+  const valid = new Set(validIds);
+  const { data: rows, error } = await supabase.from('photos').select('id, url');
+  if (error || !rows?.length) return 0;
+
+  const prefix = '/photos/gallery/';
+  const staleIds = rows
+    .filter((r) => {
+      if (valid.has(r.id)) return false;
+      const u = r.url || '';
+      if (!u.startsWith(prefix)) return false;
+      const rest = u.slice(prefix.length);
+      return rest.length > 0 && !rest.includes('/');
+    })
+    .map((r) => r.id);
+
+  let removed = 0;
+  for (const id of staleIds) {
+    const { error: delErr } = await supabase.from('photos').delete().eq('id', id);
+    if (!delErr) removed += 1;
+    else console.warn(`Could not delete stale row ${id}:`, delErr.message);
+  }
+  return removed;
+}
+
 async function seed() {
   const raw = await scanPublicPhotos();
   if (raw.length === 0) {
@@ -53,6 +79,7 @@ async function seed() {
   }
 
   const rows = toSupabaseRows(finalizeWithOrder(raw));
+  const validIds = rows.map((r) => r.id);
   console.log(`Seeding ${rows.length} photos into Supabase (upsert on id)…`);
 
   const { error } = await supabase.from('photos').upsert(rows, { onConflict: 'id' });
@@ -60,6 +87,11 @@ async function seed() {
   if (error) {
     console.error('❌  Seed failed:', error.message);
     process.exit(1);
+  }
+
+  const removed = await deleteObsoleteFlatGalleryRows(validIds);
+  if (removed > 0) {
+    console.log(`   Removed ${removed} stale row(s) (old flat /photos/gallery/… URLs, duplicate ids).`);
   }
 
   console.log(`✅  Upserted ${rows.length} photos. URLs now match public/photos on disk.`);
