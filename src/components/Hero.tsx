@@ -72,7 +72,7 @@ const Hero = () => {
                             <div className="relative overflow-hidden shadow-xl bg-white p-3 transform transition-all duration-700 hover:scale-[1.03] hover:shadow-2xl">
                                 <img
                                     src={photo.url}
-                                    alt={photo.collection}
+                                    alt={photo.title?.trim() || photo.id}
                                     className="w-full h-auto object-cover max-h-[60vh] lg:max-h-[70vh]"
                                 />
 

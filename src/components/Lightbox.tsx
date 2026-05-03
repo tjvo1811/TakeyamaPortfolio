@@ -184,7 +184,7 @@ const Lightbox: React.FC<LightboxProps> = ({ photo, onClose, galleryPhotos, onOp
                 <div className="w-full lg:flex-1 h-[60vh] lg:h-full flex items-center justify-center p-4 lg:p-12 lg:pr-6 bg-black shrink-0">
                     <img
                         src={photo.url}
-                        alt={photo.title}
+                        alt={photo.title?.trim() || photo.id}
                         className="max-w-full max-h-full object-contain shadow-2xl"
                     />
                 </div>

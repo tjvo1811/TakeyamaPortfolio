@@ -147,7 +147,7 @@ const AlbumView: React.FC = () => {
                                         <div className="relative overflow-hidden bg-slate/5 shadow-[0_4px_30px_rgba(0,0,0,0.02)]">
                                             <img
                                                 src={photo.url}
-                                                alt={photo.title || photo.collection}
+                                                alt={photo.title?.trim() || photo.id}
                                                 loading="lazy"
                                                 className="w-full h-auto object-cover transform transition-transform duration-[1.5s] ease-out group-hover:scale-[1.03] will-change-transform"
                                             />
@@ -188,7 +188,7 @@ const AlbumView: React.FC = () => {
                                             <div className="w-24 h-16 md:w-32 md:h-20 overflow-hidden bg-slate/5 shrink-0 relative">
                                                 <img
                                                     src={photo.url}
-                                                    alt={photo.title}
+                                                    alt={photo.title?.trim() || photo.id}
                                                     loading="lazy"
                                                     className="w-full h-full object-cover transition-all duration-[1.2s] ease-out group-hover:scale-110 filter md:grayscale md:group-hover:grayscale-0"
                                                 />
