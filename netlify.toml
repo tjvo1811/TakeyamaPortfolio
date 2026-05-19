@@ -12,6 +12,10 @@
 [functions]
   node_bundler = "esbuild"
 
+# Ping Supabase twice weekly (free tier pauses after ~7 days of inactivity)
+[functions."keep-supabase-alive"]
+  schedule = "0 9 * * 1,4"
+
 # Route /api/* to Netlify Functions (must come before SPA fallback)
 [[redirects]]
   from = "/api/*"

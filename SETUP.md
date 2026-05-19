@@ -85,6 +85,18 @@ That's it. You can now manage your portfolio from any device, including your pho
 
 ---
 
+## Keep Supabase awake (automatic)
+
+Supabase free-tier projects **pause after about 7 days** with no database activity. This site includes a scheduled Netlify function (`keep-supabase-alive`) that runs a tiny read against your database **twice a week** (Mondays and Thursdays, 09:00 UTC) so the project stays active even when you are not editing the admin panel.
+
+- No extra env vars are required — it uses the same `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` as your other functions.
+- After you deploy, Netlify enables the schedule automatically (see `netlify.toml`).
+- To test manually after deploy: open  
+  `https://YOUR-SITE.netlify.app/.netlify/functions/keep-supabase-alive`  
+  You should see JSON like `{"ok":true,"pingedAt":"..."}`.
+
+---
+
 ## Local development (optional)
 
 If you want to test the admin panel locally before deploying:
